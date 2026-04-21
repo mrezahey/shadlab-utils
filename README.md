@@ -1,2 +1,2 @@
 # shadlab-utils
-Utilities to load and explore data in shadmehr lab
+Utilities to load and explore data in the shadmehr lab.
