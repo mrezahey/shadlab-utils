@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 
 import numpy as np
 
@@ -60,7 +61,7 @@ elec_info: List[ElecInfo] = [
 ]
 
 ################################### Saccade info  ##########################################
-tag_name_list = [
+tag_name_list: List[str] = [
     "prim_success",
     "prim_attempt",
     "prim_fail",
