@@ -12,8 +12,8 @@ authors = [
     { name = "Mohammad Reza Heydari" }
 ]
 dependencies = [
-    "numpy>=2",
-    "pandas>=3",
+    "numpy",
+    "pandas",
     "scipy",
     "scikit-learn",
     "mat73",
