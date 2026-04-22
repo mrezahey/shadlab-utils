@@ -17,6 +17,7 @@ dependencies = [
     "scipy",
     "scikit-learn",
     "mat73",
+    "xlrd",
 ]
 
 [tool.setuptools]
