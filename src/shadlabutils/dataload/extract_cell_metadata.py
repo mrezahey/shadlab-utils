@@ -136,8 +136,8 @@ def extract_cell_metadata(path_data_monkey_sorted: str, session: str):
             units_info["cell_ids"][counter_cell][counter_recs] = (
                     recs_units[counter_recs][current_unit_ind] + ""
             )
-            x_.append(np.squeeze(units_info["elec"]["x"])[current_unit_ch - 1])
-            y_.append(current_mpm - np.squeeze(units_info["elec"]["y"])[current_unit_ch - 1])
+            x_.append(np.squeeze(units_info["elec"].x)[current_unit_ch - 1])
+            y_.append(current_mpm - np.squeeze(units_info["elec"].y)[current_unit_ch - 1])
         units_info["cell_x"][counter_cell] = np.mean(x_)
         units_info["cell_y"][counter_cell] = np.mean(y_)
 
