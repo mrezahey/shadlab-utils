@@ -145,12 +145,14 @@ def load_session(
     )
 
     units["ss_first_time"] = units["ss_time"].apply(lambda v: v[0] if len(v) > 0 else np.inf)
-    units.loc[np.isinf(units["ss_first_time"].values), "ss_first_time"] = units.loc[np.isinf(units["ss_first_time"].values), "cs_time"]\
-        .apply(lambda v: v[0] if len(v) > 0 else np.inf)
+    if np.any(np.isinf(units["ss_first_time"].values)):
+        units.loc[np.isinf(units["ss_first_time"].values), "ss_first_time"] = units.loc[np.isinf(units["ss_first_time"].values), "cs_time"]\
+            .apply(lambda v: v[0] if len(v) > 0 else np.inf)
     units["ss_first_time"] = units[["recs_ind", "ss_first_time"]].groupby("recs_ind")["ss_first_time"].transform("min")
     units["ss_last_time"] = units["ss_time"].apply(lambda v: v[-1] if len(v) > 0 else -np.inf)
-    units.loc[np.isinf(units["ss_last_time"].values), "ss_last_time"] = units.loc[np.isinf(units["ss_last_time"].values), "cs_time"]\
-        .apply(lambda v: v[-1] if len(v) > 0 else -np.inf)
+    if np.any(np.isinf(units["ss_last_time"].values)):
+        units.loc[np.isinf(units["ss_last_time"].values), "ss_last_time"] = units.loc[np.isinf(units["ss_last_time"].values), "cs_time"]\
+            .apply(lambda v: v[-1] if len(v) > 0 else -np.inf)
     units["ss_last_time"] = units[["recs_ind", "ss_last_time"]].groupby("recs_ind")["ss_last_time"].transform("max") + 1
 
     recs["sac_eye_ang"] = [np.array([]) for _ in range(len(recs))]
