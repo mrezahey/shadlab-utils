@@ -7,10 +7,10 @@ import numpy as np
 import pandas as pd
 from scipy.io import loadmat
 
-from pyutils.extract_cell_metadata import extract_cell_metadata
-from pyutils.load_cell import load_cell
-from pyutils.load_eye_traces import load_eye_traces
-from pyutils.load_tongue_traces import load_tongue_traces
+from shadlabutils.dataload.extract_cell_metadata import extract_cell_metadata
+from shadlabutils.dataload.load_cell import load_cell
+from shadlabutils.dataload.load_eye_traces import load_eye_traces
+from shadlabutils.dataload.load_tongue_traces import load_tongue_traces
 
 
 def _load_one_session(

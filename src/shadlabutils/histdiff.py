@@ -1,7 +1,7 @@
 import numpy as np
 from numba import njit
 
-from pyutils.quicksort import quicksort
+from shadlabutils.quicksort import quicksort
 
 
 @njit

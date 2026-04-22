@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 
-from . import params
+from shadlabutils.constants import elec_info
 
 
 def extract_cell_metadata(path_data_monkey_sorted: str, session: str):
@@ -33,12 +33,11 @@ def extract_cell_metadata(path_data_monkey_sorted: str, session: str):
             (sess_meta_data["ephys"] == 1) & (sess_meta_data["eye"] == 1), "num_trial"
         ]
     )
-    units_info["elec"] = params["elec_info"][
+    units_info["elec"] = elec_info[
         sess_meta_data.loc[
             (sess_meta_data["ephys"] == 1) & (sess_meta_data["eye"] == 1), "elec"
-        ].iloc[0]
-        - 1
-    ]["elec"]
+        ].iloc[0] - 1
+        ]
 
     n_recs = len(units_info["rec_list"])
     units_info["rec_path"] = list()
@@ -59,7 +58,7 @@ def extract_cell_metadata(path_data_monkey_sorted: str, session: str):
 
         # read rec_meta_data
         if not os.path.exists(
-            os.path.join(units_info["rec_path"][-1], f"{rec_name}.xls")
+                os.path.join(units_info["rec_path"][-1], f"{rec_name}.xls")
         ):
             raise FileNotFoundError("No rec Metadata!")
         rec_meta_data.append(
@@ -135,7 +134,7 @@ def extract_cell_metadata(path_data_monkey_sorted: str, session: str):
             ]
             current_unit_ch = int(recs_units[counter_recs][current_unit_ind][:-4])
             units_info["cell_ids"][counter_cell][counter_recs] = (
-                recs_units[counter_recs][current_unit_ind] + ""
+                    recs_units[counter_recs][current_unit_ind] + ""
             )
             x_.append(np.squeeze(units_info["elec"]["x"])[current_unit_ch - 1])
             y_.append(current_mpm - np.squeeze(units_info["elec"]["y"])[current_unit_ch - 1])
