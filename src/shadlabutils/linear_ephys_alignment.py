@@ -72,10 +72,25 @@ def linear_ephys_alignment(path_to_raw: str):
 
 
     elif ephys_type == "SpikeGLX":
-        ephys_rise_file = [i for i in path_to_raw.glob("*.imec0.ap.xd_*_0.txt")][0]
-        ephys_fall_file = [i for i in path_to_raw.glob("*.imec0.ap.xid_*_0.txt")][0]
-        rising_times = np.loadtxt(ephys_rise_file)
-        falling_times = np.loadtxt(ephys_fall_file)
+        ap_file = Path(list(path_to_raw.glob("*.imec0.ap.bin"))[0])
+        meta_file = ap_file.with_suffix(".meta")
+        meta = {}
+        with open(meta_file) as f:
+            for line in f:
+                key, value = line.strip().split("=", 1)
+                meta[key] = value
+        n_channels = int(meta["nSavedChans"])
+        sample_rate = float(meta["imSampRate"])
+
+        raw = np.memmap(ap_file, dtype=np.int16, mode="r").reshape(-1, n_channels)
+        digital_word = raw[:, -1].view(np.uint16)
+        digital = (digital_word >> 6) & 1
+
+        edges = np.diff(digital.astype(np.int8))
+        rising_samples = np.flatnonzero(edges == 1) + 1
+        falling_samples = np.flatnonzero(edges == -1) + 1
+        rising_times = rising_samples / sample_rate
+        falling_times = falling_samples / sample_rate
 
         ttl = pd.concat([
             pd.DataFrame({"timestamps": rising_times, "eventId": np.ones_like(rising_times)}),
