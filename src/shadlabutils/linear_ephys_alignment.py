@@ -16,7 +16,7 @@ def linear_ephys_alignment(path_to_raw: str):
     path_to_raw = Path(PureWindowsPath(path_to_raw))
 
     # read events to extract the reference signal
-    event_jsonl_file = [i for i in path_to_raw.glob("*.jsonl") if "diagnostics" not in str(i)]
+    event_jsonl_file = [i for i in path_to_raw.glob("*.jsonl") if "diagnostics" not in str(i) and "spinnaker" not in str(i)]
     assert len(event_jsonl_file) == 1, f"There should be only one event file, but there are {len(event_jsonl_file)}"
     event_jsonl_file = event_jsonl_file[0]
 
