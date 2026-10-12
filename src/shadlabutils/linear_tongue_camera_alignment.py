@@ -82,7 +82,7 @@ def linear_tongue_camera_alignment(path_to_raw: str, camera_label: str = "side")
     success = False
     for i_try in range(5):
         a, b, score = fit_clock_mapping(tref - first_tref_time, xref, tsig - first_tsig_time, xsig,
-                                        drift_ppm=5000, offset_range=(-1, 1))
+                                        drift_ppm=5000, offset_range=(-0.01, 0.01))
         tsig_aligned = a * (tsig - first_tsig_time) + b + first_tref_time
 
         diff_sig_0 = closest_times(tsig_aligned[xsig == 0], tref[xref == 0]) - tref[xref == 0]
