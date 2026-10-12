@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path, PureWindowsPath
 
-from marmapp_funcs import read_compressed_values, EyeTrackerData
+from shadlabutils.marmapp_funcs import read_compressed_values, EyeTrackerData
 from shadlabutils.alignment_utils import binary_agreement, fit_clock_mapping
 from shadlabutils.closest_times import closest_times
 
